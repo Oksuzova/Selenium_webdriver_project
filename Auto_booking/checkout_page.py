@@ -1,12 +1,12 @@
 from page import Page
-from locators import CheckoutLocators
+from locators import CheckoutLocators, QuoteSelect, ProductSelect, BillingInfo, OrderInfo
 
 
 class CheckoutPage(Page):
 
     @property
     def input_email(self):
-        return self.driver.find_element(*CheckoutLocators.EMAIL_INPUT)
+        return self.is_element_visible(CheckoutLocators.EMAIL_INPUT)
 
     @property
     def input_phone(self):
@@ -75,3 +75,47 @@ class CheckoutPage(Page):
     @property
     def button_continue(self):
         return self.driver.find_element(*CheckoutLocators.CONTINUE_BUTTON)
+
+
+class QuotePage(Page):
+    @property
+    def button_quote(self):
+        return self.is_element_visible(QuoteSelect.FIRST_QUOTE_BUTTON)
+
+
+class ProductPage(Page):
+    @property
+    def button_continue(self):
+        return self.is_element_visible(ProductSelect.CONTINUE_BUTTON)
+
+
+class BillingPage(Page):
+    @property
+    def input_card_number(self):
+        return self.driver.find_element(*BillingInfo.CARD_NUMBER_INPUT)
+
+    @property
+    def input_card_name(self):
+        return self.driver.find_element(*BillingInfo.CARD_NAME_INPUT)
+
+    @property
+    def input_card_month(self):
+        return self.is_element_visible(BillingInfo.CARD_EXPIRATION_MONTH_INPUT)
+
+    @property
+    def input_card_year(self):
+        return self.is_element_visible(BillingInfo.CARD_EXPIRATION_YEAR_INPUT)
+
+    @property
+    def input_cvv(self):
+        return self.is_element_visible(BillingInfo.CARD_CVV_INPUT)
+
+    @property
+    def button_buy_now(self):
+        return self.is_element_visible(BillingInfo.BUY_NOW_BUTTON)
+
+
+class OrderPage(Page):
+    @property
+    def label_order_number(self):
+        return self.is_element_visible(OrderInfo.ORDER_NUMDER_TEXT)

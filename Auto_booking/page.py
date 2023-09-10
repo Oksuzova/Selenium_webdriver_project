@@ -5,9 +5,8 @@ from selenium.webdriver import Chrome
 
 
 class Page(object):
-    def __init__(self, driver: Chrome, base_url):
+    def __init__(self, driver: Chrome):
         self.driver = driver
-        self.base_url = base_url
         self.wait = WebDriverWait(driver, 10)
 
     def is_element_visible(self, locator: tuple):

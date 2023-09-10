@@ -1,13 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
-from checkout_page import CheckoutPage
+from checkout_page import CheckoutPage, QuotePage, ProductPage, BillingPage, OrderPage
 import time
 
 
 chrome_driver_path = Service("D:\Chromedriver\chromedriver.exe")
 driver = webdriver.Chrome(service=chrome_driver_path)
-base_url = "https://ovago-hybrid-stage.travel-dev.com/checkout/OF8C8EA89?xp=20037.1"
+base_url = "https://ovago-hybrid-stage.travel-dev.com/search/IAD-LON/2023-10-08/2023-10-14"
 
 
 class AutoBooking:
@@ -17,7 +17,15 @@ class AutoBooking:
         self.driver.get(base_url)
         self.driver.maximize_window()
         self.wait = WebDriverWait(driver, 10)
-        self.checkout_page = CheckoutPage(driver, base_url)
+        self.checkout_page = CheckoutPage(driver)
+        self.quote_page = QuotePage(driver)
+        self.product_page = ProductPage(driver)
+        self.billing_page = BillingPage(driver)
+        self.order_page = OrderPage(driver)
+
+    def select_quote(self):
+        qs = self.quote_page
+        qs.button_quote.click()
 
     def fill_contact_form(self):
         cp = self.checkout_page
@@ -42,14 +50,43 @@ class AutoBooking:
         cp.input_bd_day.send_keys("14")
         cp.input_bd_year.send_keys("2000")
 
-    def click_continue_button(self):
+    def ch_click_continue_button(self):
         cp = self.checkout_page
         cp.button_continue.click()
-        time.sleep(5)
+
+    def ps_click_continue_button(self):
+        ps = self.product_page
+        ps.button_continue.click()
+
+    def bi_fill_card_info(self):
+        bi = self.billing_page
+        bi.input_card_number.send_keys("4242")
+        bi.input_card_number.send_keys("4242")
+        bi.input_card_number.send_keys("4242")
+        bi.input_card_number.send_keys("4242")
+        bi.input_card_name.send_keys("Eryn K Abbott")
+        bi.input_card_month.send_keys("09")
+        bi.input_card_year.send_keys("2025")
+        bi.input_cvv.send_keys("222")
+        bi.button_buy_now.click()
+
+    def get_order_number(self):
+        op = self.order_page
+        print(op.label_order_number.text)
 
 
 if __name__ == "__main__":
     ab = AutoBooking(driver, base_url)
+
+    ab.select_quote()
     ab.fill_contact_form()
     ab.fill_passenger_info()
-    ab.click_continue_button()
+    ab.ch_click_continue_button()
+    time.sleep(5)
+    ab.ps_click_continue_button()
+    time.sleep(5)
+    ab.bi_fill_card_info()
+    time.sleep(5)
+    ab.get_order_number()
+    time.sleep(5)
+

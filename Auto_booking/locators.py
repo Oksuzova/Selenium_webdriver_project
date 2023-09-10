@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from page import Page
 
 
 class CheckoutLocators:
@@ -23,3 +22,24 @@ class CheckoutLocators:
     BIRTHDATE_YEAR_INPUT = (By.NAME, "passenger-0-ps_birth_date_year")
 
     CONTINUE_BUTTON = (By.CSS_SELECTOR, "#step-itinerary > div.btn-wrapper > button")
+
+
+class QuoteSelect:
+    FIRST_QUOTE_BUTTON = (By.CSS_SELECTOR, "button.sr-price-wrap__book-btn.btn")
+
+
+class ProductSelect:
+    CONTINUE_BUTTON = (By.CSS_SELECTOR, "#step-extras > div.btn-wrapper > button")
+
+
+class BillingInfo:
+    CARD_NUMBER_INPUT = (By.NAME, "Checkout[ch_card_number]")
+    CARD_NAME_INPUT = (By.NAME, "Checkout[ch_card_name]")
+    CARD_EXPIRATION_MONTH_INPUT = (By.NAME, "Checkout[ch_card_expiration_month]")
+    CARD_EXPIRATION_YEAR_INPUT = (By.NAME, "Checkout[ch_card_expiration_year]")
+    CARD_CVV_INPUT = (By.NAME, "Checkout[ch_card_security_code]")
+    BUY_NOW_BUTTON = (By.CSS_SELECTOR, "#step-review > div.checkout-btn-wrapper > button")
+
+
+class OrderInfo:
+    ORDER_NUMDER_TEXT = (By.CSS_SELECTOR, "body > main > div > div.booker-details > div.booker-details__subtitle > span")
